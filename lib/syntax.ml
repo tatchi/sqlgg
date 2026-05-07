@@ -1379,6 +1379,7 @@ let rec eval (stmt:Sql.stmt) =
       | `RenameColumn (oldcol,newcol) -> Tables.rename_column name oldcol newcol
       | `RenameTable new_name -> Tables.rename name new_name
       | `RenameIndex _ -> () (* indices are not tracked yet *)
+      | `TtlOptions _ | `RemoveTtl _ -> () (* TTL is a TiDB-specific table property, not tracked in schema *)
       | `Default_or_convert_to _
       | `None -> ()) actions;
       ([],[],Alter [name])

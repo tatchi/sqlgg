@@ -787,6 +787,10 @@ type create_target =
   | Select of select_full located
 [@@deriving show {with_path=false}]
 
+type ttl_option =
+  [ `TtlSet of string * int * string
+  | `TtlEnable of string ] [@@deriving show {with_path=false}]
+
 type alter_action = [
     | `Add of Alter_action_attr.t * alter_pos
     | `RenameTable of table_name
@@ -795,6 +799,8 @@ type alter_action = [
     | `Drop of string
     | `Change of string * Alter_action_attr.t * alter_pos
     | `Default_or_convert_to of string located option
+    | `TtlOptions of ttl_option list * pos
+    | `RemoveTtl of pos
     | `None ] [@@deriving show {with_path=false}]
 
 type stmt =
